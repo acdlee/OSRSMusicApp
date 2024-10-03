@@ -1,0 +1,26 @@
+Problem: the URLs to access the audio files are all encoded differently (eg: https://oldschool.runescape.wiki/w/Settlement vs https://oldschool.runescape.wiki/w/File:Shine.ogg)
+Solution: We can hard code a bunch of objects, each with the URL to play the soundtrack coupled with an identifier.
+->Okay, this is done.
+
+Now we have to figure out some clean logic to represent the audio under the hood.
+Problem: how do we represent the logic cleanly?
+Solution: track will hold the actual track object (from your data)
+        Load the audio object using track.URL
+        Allow the user to search and set the options; update display using filter
+        When you click the associated button, update the track state to that data object
+-> Pretty much done with this specific Problem
+
+Problem: how do we get the selected track from the button click?
+Solution: use ids on the buttons
+
+BUG!
+problem: when you use search, the link to the associated audio object is lost?
+solution: i think audioObject needs to be a state. that way we can access the same
+        object across renders
+-> ended up just making it a state and added a useEffect that triggers when the track changes
+        kinda makes sense: when track changes, the audio should change too
+
+Next:
+- iron out the logic a bit for audioObj/track
+-> there shouldn't be a default track
+-> you really shouldn't need to use useEffect
