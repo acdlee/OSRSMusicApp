@@ -1,0 +1,24 @@
+so the currSong will just be an int
+
+a0:
+-selectSongBtn()
+->addToQueue()
+    -> new audioObj(song)
+    ->
+
+a1:
+-playBtn()
+->currSong = queue[0]
+->currSong.play()
+
+a2:
+-prevBtn()
+->currSong.restart()
+
+a3:
+-pauseBtn()
+->currSong.pause()
+
+a4:
+-selectSongBtn()
+->

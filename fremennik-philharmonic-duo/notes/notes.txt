@@ -24,3 +24,25 @@ Next:
 - iron out the logic a bit for audioObj/track
 -> there shouldn't be a default track
 -> you really shouldn't need to use useEffect
+
+I think the problem lies with the structure itself:
+ selecting a song should be adding to a queue. 
+ and when we hit play/pause, it should work with the queue
+
+v01
+store the current playing track in audioObj
+store titles in queue
+-> when the next button is clicked, you update the audioObj
+-> useeffect triggers when audioObj changes, and has a function that plays
+         the audioObj.. but you should only play if user has the play button on
+
+
+v02:
+- queue, audioObj, playState
+- user clicks play when audioObj empty -> nothing
+- user adds song to queue
+        -> creates audioObj, places it in queue
+- user clicks play
+        -> grabs next audioObj in queue
+        -> sets the currentAudioObj to point to the song in the queue?
+        -> plays the audioObj
