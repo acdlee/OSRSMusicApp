@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { musicData } from './data/data'
 
+import maxImage from './assets/maxing.png'
+
 import Title from './components/Title'
 import Intro from './components/Intro'
 import Guide from './components/Guide'
@@ -73,6 +75,9 @@ const App = () => {
             </p>
           )
         })}
+      </div>
+      <div>
+        <img src={maxImage} style={{width: '500px'}} alt="A picture of my character on Max's Island" />
       </div>
     </>
   )

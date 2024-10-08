@@ -1,0 +1,14 @@
+merge
+new branch - song display
+- picture for playing song
+- time ticker for song
+- transition to db.json file
+
+
+merge
+new branch - show queue
+
+merge
+new branch - script to download all music tracks
+- format and store in db.json
+- gather pictures for each song
