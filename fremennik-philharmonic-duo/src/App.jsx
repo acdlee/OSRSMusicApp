@@ -58,26 +58,15 @@ const App = () => {
       <Title />
       <Intro />
       <Guide />
+      <Music play={play} handlePlayPause={handlePlayPause} handleNext={handleNext} />
+      <SearchBox search={search} handleSearch={handleSearch} />
+      <TrackList searchOptions={searchOptions} addToQueue={addToQueue} />
       <div>
-        <Button id="play-pause-button" text={play? "Pause" : "Play"} handleClick={handlePlayPause} />
-        <Button id="next-button" text="Next" handleClick={handleNext} />
-      </div>
-      <div>
-        <label htmlFor="search">Search:</label>
-        <input id='search' value={search} onChange={handleSearch}/>
-      </div>
-      <div>
-        {searchOptions.map((trackObject) => {
-          return (
-            <p key={trackObject.id}>
-              {trackObject.title}
-              <Button id={trackObject.title} text={`Queue`} handleClick={addToQueue} />
-            </p>
-          )
-        })}
-      </div>
-      <div>
-        <img src={maxImage} style={{width: '500px'}} alt="A picture of my character on Max's Island" />
+        <figure>
+          <figcaption>{currentSong ? `Listening to: ${currentSong}` : "Select a song"}</figcaption>
+          <img src={maxImage} style={{width: '500px'}} alt="A picture of my character on Max's Island" />
+        </figure>
+        
       </div>
     </>
   )

@@ -1,10 +1,10 @@
 import Button from './Button'
 
-const Music = ({ playTrack, pauseTrack }) => {
+const Music = ({ play, handlePlayPause, handleNext }) => {
     return (
       <div>
-        <Button id="playBtn" text="Play" handleClick={playTrack}/>
-        <Button id="pauseBtn" text="Pause" handleClick={pauseTrack}/>
+        <Button id="play-pause-button" text={play? "Pause" : "Play"} handleClick={handlePlayPause} />
+        <Button id="next-button" text="Next" handleClick={handleNext} />
       </div>
     )
 }

@@ -1,13 +1,13 @@
 import Button from "./Button"
 
-const TrackList = ({ searchOptions, handleTrackSelection }) => {
+const TrackList = ({ searchOptions, addToQueue }) => {
     return (
       <div>
         {searchOptions.map((trackObject) => {
           return (
             <p key={trackObject.id}>
               {trackObject.title}
-              <Button id={trackObject.title} text={`Select ${trackObject.title}`} handleClick={handleTrackSelection} />
+              <Button id={trackObject.title} text={`Queue`} handleClick={addToQueue} />
             </p>
           )
         })}
