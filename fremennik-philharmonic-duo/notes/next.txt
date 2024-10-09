@@ -1,14 +1,8 @@
-merge
-new branch - song display
-- picture for playing song
-- time ticker for song
-- transition to db.json file
+add all controls 
+- time display
+- volume control
+- autoplay button -> overrides all other play/pause options for buttons
 
+add image to data
+- data[0].img = image_url
 
-merge
-new branch - show queue
-
-merge
-new branch - script to download all music tracks
-- format and store in db.json
-- gather pictures for each song

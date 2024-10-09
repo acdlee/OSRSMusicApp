@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import './App.css'
 import { musicData } from './data/data'
@@ -18,26 +18,52 @@ const App = () => {
   const [currentSong, setCurrentSong] = useState(0)
   const [queue, setQueue] = useState([])
   const [play, setPlay] = useState(false)
-
-  const handlePlayPause = (event) => {
-    const action = play ? "Pausing" : "Playing"
-    console.log(action)
-    setPlay(!play)
-  }
-
-  const handleNext = () => {
-    // check if next is a valid action
-    if (queue.length > currentSong + 1) {
-      // pause the current song
-      queue[currentSong].pause()
-      // move to the next song
-      setCurrentSong(currentSong + 1)
-    }
-  }
+  const audioRef = useRef(null)
 
   const addToQueue = (event) => {
     const newTrack = musicData.find(trackObj => trackObj.title === event.target.id)
-    setQueue(queue.concat(new Audio(newTrack.url)))
+    console.log(newTrack)
+    setQueue(queue.concat(newTrack))
+  }
+
+  const handleEnded = (event) => {
+    // Since a song has ended, move the currentSong (queue pointer)
+    setCurrentSong(currentSong + 1)
+    // And flip play/pause button
+    setPlay(!play)
+  }
+
+  const handlePlayPause = () => {
+    // Check if the audio element has a song to play
+    if (audioRef.current.src !== '') {
+      audioRef.current.currentTime = audioRef.current.duration - 10.0
+      play ? audioRef.current.pause() : audioRef.current.play()
+      setPlay(!play)
+    }
+  }
+
+  const handlePrevious = () => {
+    // Decrement currentSong (queue pointer) to move to the previous song
+    if (currentSong - 1 >= 0) {
+      // stop curent song
+      audioRef.current.pause()
+      // Set play to false
+      setPlay(false)
+      // move pointer
+      setCurrentSong(currentSong - 1)
+    }
+  }
+
+  const handleNext = () => {
+    // increment currentSong (queue pointer) to move to the next song
+    if (currentSong + 1 < queue.length) {
+      // stop current song
+      audioRef.current.pause()
+      // Set play to false
+      setPlay(false)
+      // move pointer
+      setCurrentSong(currentSong + 1)
+    }
   }
 
   const handleSearch = event => setSearch(event.target.value)
@@ -46,28 +72,28 @@ const App = () => {
     ? musicData
     : musicData.filter(trackObject => trackObject.title.toLowerCase().includes(search.toLowerCase()))
 
-  // Check if the user is allowed to play a song
-  if (queue.length > 0 && currentSong < queue.length) {
-    // Check if the user wants to play or pause
-    play ? queue[currentSong].play() : queue[currentSong].pause()
-  }
-
   return (
     <>
       <div>Debug: {play ? "Playing" : "Paused"}</div>
+      <div>Debug: {queue.map(s => s.title)}</div>
       <Title />
-      <Intro />
-      <Guide />
-      <Music play={play} handlePlayPause={handlePlayPause} handleNext={handleNext} />
+      {/* <Intro /> */}
+      {/* <Guide /> */}
       <SearchBox search={search} handleSearch={handleSearch} />
       <TrackList searchOptions={searchOptions} addToQueue={addToQueue} />
-      <div>
-        <figure>
-          <figcaption>{currentSong ? `Listening to: ${currentSong}` : "Select a song"}</figcaption>
-          <img src={maxImage} style={{width: '500px'}} alt="A picture of my character on Max's Island" />
-        </figure>
-        
-      </div>
+
+      <figure>
+        <figcaption>Listen to a song!</figcaption>
+        <img src={maxImage} style={{width: '500px', display: 'block'}} alt="A picture of my character on Max's Island" />
+        <audio 
+          ref={audioRef} 
+          src={queue.length > currentSong ? queue[currentSong].url : null}
+          onEnded={handleEnded}>
+        </audio>
+        <button onClick={handlePrevious}>Previous</button>
+        <button onClick={handlePlayPause}>{play ? "Pause" : "Play"}</button>
+        <button onClick={handleNext}>Next</button>
+      </figure>
     </>
   )
 }
