@@ -18,11 +18,16 @@ const App = () => {
   const [currentSong, setCurrentSong] = useState(0)
   const [queue, setQueue] = useState([])
   const [play, setPlay] = useState(false)
+  const [volValue, setVolValue] = useState(5)
+  const [time, setTime] = useState(0)
+  const [maxTime, setMaxTime] = useState(100)
+
   const audioRef = useRef(null)
 
   const addToQueue = (event) => {
+    // find the associated track object
     const newTrack = musicData.find(trackObj => trackObj.title === event.target.id)
-    console.log(newTrack)
+    // add track to queue
     setQueue(queue.concat(newTrack))
   }
 
@@ -34,9 +39,11 @@ const App = () => {
   }
 
   const handlePlayPause = () => {
-    // Check if the audio element has a song to play
-    if (audioRef.current.src !== '') {
-      audioRef.current.currentTime = audioRef.current.duration - 10.0
+    if (audioRef.current.src !== '') {  // Check if the audio element has a song to play
+      audioRef.current.currentTime = audioRef.current.duration - 20.0
+      // set max time for range input element
+      setMaxTime(audioRef.current.duration)
+      // play or pause
       play ? audioRef.current.pause() : audioRef.current.play()
       setPlay(!play)
     }
@@ -66,6 +73,15 @@ const App = () => {
     }
   }
 
+  const handleVolumeChange = (event) => {
+    audioRef.current.volume = event.target.value / 10
+    setVolValue(event.target.value)
+  }
+
+  const handleTimeChange = (event) => {
+    audioRef.current.currentTime = event.target.value
+  }
+
   const handleSearch = event => setSearch(event.target.value)
 
   const searchOptions = search === ''
@@ -76,6 +92,7 @@ const App = () => {
     <>
       <div>Debug: {play ? "Playing" : "Paused"}</div>
       <div>Debug: {queue.map(s => s.title)}</div>
+      <div>Debug: {time}</div>
       <Title />
       {/* <Intro /> */}
       {/* <Guide /> */}
@@ -88,11 +105,26 @@ const App = () => {
         <audio 
           ref={audioRef} 
           src={queue.length > currentSong ? queue[currentSong].url : null}
-          onEnded={handleEnded}>
-        </audio>
+          onEnded={handleEnded}
+          onTimeUpdate={(event) => setTime(audioRef.current.currentTime)}
+        ></audio>
+        <input 
+          type="range"
+          min={0}
+          max={maxTime}
+          value={time}
+          onChange={handleTimeChange} 
+        />
         <button onClick={handlePrevious}>Previous</button>
         <button onClick={handlePlayPause}>{play ? "Pause" : "Play"}</button>
         <button onClick={handleNext}>Next</button>
+        <input 
+          type="range" 
+          min={0} 
+          max={10} 
+          value={volValue} 
+          onChange={handleVolumeChange}
+        />
       </figure>
     </>
   )
