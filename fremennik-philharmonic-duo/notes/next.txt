@@ -1,5 +1,4 @@
 add all controls 
-- volume control
 - autoplay button -> overrides all other play/pause options for buttons
 
 add image to data

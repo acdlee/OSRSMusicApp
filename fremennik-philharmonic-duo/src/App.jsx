@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 import './App.css'
-import { musicData } from './data/data'
+import { musicData } from './data/dataTrue'
 
 import maxImage from './assets/maxing.png'
 
@@ -40,7 +40,8 @@ const App = () => {
 
   const handlePlayPause = () => {
     if (audioRef.current.src !== '') {  // Check if the audio element has a song to play
-      audioRef.current.currentTime = audioRef.current.duration - 20.0
+      // Next line is for debugging
+      // audioRef.current.currentTime = audioRef.current.duration - 20.0
       // set max time for range input element
       setMaxTime(audioRef.current.duration)
       // play or pause

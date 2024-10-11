@@ -8,5 +8,10 @@ export const musicData = [
         url: "https://oldschool.runescape.wiki/images/transcoded/Serenade_%28v1%29.ogg/Serenade_%28v1%29.ogg.mp3",
         title: "Serenade",
         id: 1,
+    },
+    {
+        url: "https://oldschool.runescape.wiki/images/Adventure.ogg?11111",
+        title: "Adventure",
+        id: 2,
     }
 ];

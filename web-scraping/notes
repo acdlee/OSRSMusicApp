@@ -1,0 +1,13 @@
+->find the table
+->find the tbody
+->find a song row
+
+grab the song title and the link to the song page from the row
+( the song page link is the href in the last td for a song row)
+
+using that link, grab the link from the first clickable a tag (it's the href for the SongName.ogg right under
+the audio element controls on the page)
+
+repeat for all songs
+
+format and store the data
