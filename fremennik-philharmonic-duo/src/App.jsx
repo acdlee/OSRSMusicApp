@@ -95,38 +95,27 @@ const App = () => {
       <div>Debug: {queue.map(s => s.title)}</div>
       <div>Debug: {time}</div>
       <Title />
-      {/* <Intro /> */}
-      {/* <Guide /> */}
+      <Intro />
+      <Guide />
+      <Music 
+        maxImage={maxImage}
+        audioRef={audioRef}
+        queue={queue}
+        currentSong={currentSong}
+        handleEnded={handleEnded}
+        setTime={setTime}
+        maxTime={maxTime}
+        time={time}
+        handleTimeChange={handleTimeChange}
+        handlePrevious={handlePrevious}
+        handlePlayPause={handlePlayPause}
+        play={play}
+        handleNext={handleNext}
+        volValue={volValue}
+        handleVolumeChange={handleVolumeChange}
+      />
       <SearchBox search={search} handleSearch={handleSearch} />
       <TrackList searchOptions={searchOptions} addToQueue={addToQueue} />
-
-      <figure>
-        <figcaption>Listen to a song!</figcaption>
-        <img src={maxImage} style={{width: '500px', display: 'block'}} alt="A picture of my character on Max's Island" />
-        <audio 
-          ref={audioRef} 
-          src={queue.length > currentSong ? queue[currentSong].url : null}
-          onEnded={handleEnded}
-          onTimeUpdate={(event) => setTime(audioRef.current.currentTime)}
-        ></audio>
-        <input 
-          type="range"
-          min={0}
-          max={maxTime}
-          value={time}
-          onChange={handleTimeChange} 
-        />
-        <button onClick={handlePrevious}>Previous</button>
-        <button onClick={handlePlayPause}>{play ? "Pause" : "Play"}</button>
-        <button onClick={handleNext}>Next</button>
-        <input 
-          type="range" 
-          min={0} 
-          max={10} 
-          value={volValue} 
-          onChange={handleVolumeChange}
-        />
-      </figure>
     </>
   )
 }
