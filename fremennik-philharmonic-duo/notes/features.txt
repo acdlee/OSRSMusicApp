@@ -1,6 +1,3 @@
 TODO:
-* Add more data
 * Add a playlist feature
-* Add more control for playing the audio (display and what not)
-* Add a queue
 * Can do a featured playlist - like "Farmrun"

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 import './App.css'
 import { musicData } from './data/dataTrue'
@@ -9,7 +9,6 @@ import Title from './components/Title'
 import Intro from './components/Intro'
 import Guide from './components/Guide'
 import Music from './components/Music'
-import Button from './components/Button'
 import TrackList from './components/TrackList'
 import SearchBox from './components/SearchBox'
 
